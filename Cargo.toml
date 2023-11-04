@@ -14,3 +14,7 @@ repository = "https://github.com/UnknownRori/rxa"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+chrono = "0.4.31"
+clap = "4.4.7"
+console = "0.15.7"
+faccess = "0.2.4"
