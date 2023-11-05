@@ -5,13 +5,13 @@ use clap::{Args as ClapArgs, Parser};
 pub struct Args {
     // TODO : Optimize this later
     #[arg(default_value_t = String::from("."), help = "Path to scan")]
-    dir: String,
+    pub dir: String,
 
     #[command(flatten)]
-    displays_options: DisplayOptions,
+    pub display_options: DisplayOptions,
 
     #[command(flatten)]
-    sorting_filtering_options: SortingFilteringOptions,
+    pub sorting_filtering_options: SortingFilteringOptions,
 }
 
 #[derive(ClapArgs, Debug)]
@@ -19,11 +19,11 @@ pub struct Args {
 pub struct DisplayOptions {
     #[arg(
         short = '1',
-        long,
+        long = "oneline",
         default_value_t = false,
         help = "Display one entry per line"
     )]
-    oneline: bool,
+    pub one_line: bool,
 
     #[arg(
         short = 'l',
@@ -31,7 +31,7 @@ pub struct DisplayOptions {
         default_value_t = false,
         help = "Display extended file metadata as table"
     )]
-    long: bool,
+    pub long: bool,
 
     #[arg(
         short = 'G',
@@ -39,7 +39,7 @@ pub struct DisplayOptions {
         default_value_t = false,
         help = "Display entries as grid (default)"
     )]
-    grid: bool,
+    pub grid: bool,
 
     #[arg(
         short = 'T',
@@ -47,10 +47,10 @@ pub struct DisplayOptions {
         default_value_t = false,
         help = "Recurse into directories as tree"
     )]
-    tree: bool,
+    pub tree: bool,
 
     #[arg(long, default_value_t = false, help = "Display entries as hyperlink")]
-    hyperlink: bool,
+    pub hyperlink: bool,
 }
 
 #[derive(ClapArgs, Debug)]
@@ -62,7 +62,7 @@ pub struct SortingFilteringOptions {
         default_value_t = false,
         help = "Show hidden and `dot` files"
     )]
-    all: bool,
+    pub all: bool,
 
     #[arg(
         short = 'A',
@@ -70,13 +70,13 @@ pub struct SortingFilteringOptions {
         default_value_t = false,
         help = "For compability purpose"
     )]
-    almost_all: bool,
+    pub almost_all: bool,
 
     #[arg(short = 'D', long, help = "List only directories")]
-    only_dirs: bool,
+    pub only_dirs: bool,
 
     #[arg(short = 'f', long, help = "List only files")]
-    only_files: bool,
+    pub only_files: bool,
 
     #[arg(
         short = 'r',
@@ -84,5 +84,5 @@ pub struct SortingFilteringOptions {
         default_value_t = false,
         help = "Reverse the sort order"
     )]
-    reverse: bool,
+    pub reverse: bool,
 }
