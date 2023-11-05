@@ -48,6 +48,9 @@ pub struct DisplayOptions {
         help = "Recurse into directories as tree"
     )]
     tree: bool,
+
+    #[arg(long, default_value_t = false, help = "Display entries as hyperlink")]
+    hyperlink: bool,
 }
 
 #[derive(ClapArgs, Debug)]
