@@ -1,6 +1,6 @@
-use crate::file_walker::RxaFile;
+use crate::rxa_file::{RxaFile, RxaItemDisplay};
 
-pub type DisplayItems = Vec<(u32, RxaFile)>;
+pub type DisplayItems = Vec<RxaFile>;
 
 pub fn print_grid(items: DisplayItems) {
     unimplemented!()
@@ -8,6 +8,11 @@ pub fn print_grid(items: DisplayItems) {
 
 pub fn print_oneline(items: DisplayItems) {
     for item in items {
-        println!("{}", item.1.print_name());
+        let display = match item {
+            RxaFile::File(file) => file.display(),
+            RxaFile::Directory(dir) => dir.display(),
+        };
+
+        println!("{}", display);
     }
 }

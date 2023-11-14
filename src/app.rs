@@ -22,7 +22,7 @@ impl App {
         let current_dir = Path::new(&self.args.dir);
 
         let filewalker = FileWalker::new(&current_dir)?;
-        let current_dir_data = parse_list_file(filewalker, 0);
+        let current_dir_data = parse_list_file(filewalker);
 
         match display_option {
             DisplayOptionEnum::Long => todo!(),

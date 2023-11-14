@@ -1,58 +1,10 @@
 use anyhow::Result;
-use console::Style;
-use faccess::PathExt;
-use std::{
-    fmt::format,
-    fs::{DirEntry, FileType, ReadDir},
-    path::Path,
-    path::PathBuf,
+use std::{fs::ReadDir, path::Path};
+
+use crate::{
+    print::DisplayItems,
+    rxa_file::{RDirectory, RFile, RxaFile},
 };
-
-use crate::print::DisplayItems;
-
-// Optimize later and put it into seperate file
-#[derive(Debug)]
-pub struct RxaFile {
-    path: PathBuf,
-    file_name: String,
-    file_type: FileType,
-}
-
-impl RxaFile {
-    pub fn path(&self) -> &PathBuf {
-        &self.path
-    }
-
-    pub fn file_name(&self) -> &str {
-        &self.file_name
-    }
-
-    pub fn file_type(&self) -> &FileType {
-        &self.file_type
-    }
-
-    pub fn print_detailed(&self) -> String {
-        todo!()
-    }
-
-    pub fn print_name(&self) -> String {
-        let mut style = Style::new();
-
-        if self.file_type.is_dir() {
-            style = style.blue().bold();
-        }
-
-        if self.path.executable() && self.file_type.is_file() {
-            style = style.green();
-        }
-
-        if !self.path.readable() {
-            style = style.red();
-        }
-
-        format!("{}", style.apply_to(self.file_name()))
-    }
-}
 
 #[derive(Debug)]
 pub struct FileWalker {
@@ -80,12 +32,18 @@ impl Iterator for FileWalker {
                 }
 
                 let file = file.unwrap();
-                Some(RxaFile {
+                if file.path().is_dir() {
+                    return Some(RxaFile::Directory(RDirectory {
+                        path: file.path(),
+                        dir_type: file.file_type().unwrap(),
+                        child: vec![],
+                    }));
+                }
+
+                return Some(RxaFile::File(RFile {
                     path: file.path(),
                     file_type: file.file_type().unwrap(),
-                    file_name: file.file_name().into_string().unwrap(), // TODO : Handle this
-                                                                        // properly
-                })
+                }));
             }
             None => None,
         }
@@ -93,11 +51,11 @@ impl Iterator for FileWalker {
 }
 
 // TODO : Put this seperate file as utility
-pub fn parse_list_file(filewalker: FileWalker, level: u32) -> DisplayItems {
+pub fn parse_list_file(filewalker: FileWalker) -> DisplayItems {
     let mut temp = vec![];
 
     for item in filewalker {
-        temp.push((level, item));
+        temp.push(item);
     }
 
     temp
