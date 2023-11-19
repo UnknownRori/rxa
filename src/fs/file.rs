@@ -3,7 +3,7 @@ use std::{fs::FileType, path::PathBuf};
 use console::Style;
 use faccess::PathExt;
 
-pub trait RxaItemDisplay {
+pub trait RItemDisplay {
     fn display(&self) -> String;
     fn display_detailed(&self) -> String;
 }
@@ -16,7 +16,7 @@ pub struct RFile {
     pub file_type: FileType,
 }
 
-impl RxaItemDisplay for RFile {
+impl RItemDisplay for RFile {
     fn display(&self) -> String {
         let mut style = Style::new();
         let filename = self.path.file_name().unwrap().to_string_lossy().to_string();
@@ -47,7 +47,7 @@ pub struct RDirectory {
     pub child: Vec<RxaFile>,
 }
 
-impl RxaItemDisplay for RDirectory {
+impl RItemDisplay for RDirectory {
     fn display(&self) -> String {
         let mut style = Style::new().blue();
         let filename = self.path.file_name().unwrap().to_string_lossy().to_string();

@@ -1,4 +1,4 @@
-use crate::rxa_file::{RxaFile, RxaItemDisplay};
+use crate::fs::file::{RItemDisplay, RxaFile};
 
 pub type DisplayItems = Vec<RxaFile>;
 

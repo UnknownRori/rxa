@@ -1,10 +1,9 @@
 use anyhow::Result;
 use std::{fs::ReadDir, path::Path};
 
-use crate::{
-    print::DisplayItems,
-    rxa_file::{RDirectory, RFile, RxaFile},
-};
+use crate::print::DisplayItems;
+
+use super::file::{RDirectory, RFile, RxaFile};
 
 #[derive(Debug)]
 pub struct FileWalker {

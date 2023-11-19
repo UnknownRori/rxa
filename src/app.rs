@@ -1,6 +1,6 @@
 use std::path::Path;
 
-use crate::file_walker::{parse_list_file, FileWalker};
+use crate::fs::file_walker::{parse_list_file, FileWalker};
 use crate::print::{print_grid, print_oneline};
 
 use super::display_options::DisplayOptionEnum;
