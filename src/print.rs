@@ -30,11 +30,9 @@ pub fn print_grid(items: DisplayItems) {
             RxaFile::Directory(dir) => dir.display(),
         };
 
-        let cell = Cell::from(display);
-        grid.add(cell);
+        grid.add(Cell::from(display));
     }
 
-    println!("{}:{}", width, height);
     println!("{}", grid.fit_into_width(width.into()).unwrap());
 }
 
